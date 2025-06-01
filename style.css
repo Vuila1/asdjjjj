@@ -1,0 +1,536 @@
+/* General Body and Container Styles */
+body {
+    font-family: 'Poppins', 'Inter', sans-serif;
+    background-color: black;
+    background: url("img/background.jpg") no-repeat center center fixed;
+    background-size: cover;
+    margin: 0;
+    padding: 0;
+    color: white;
+    position: relative;
+}
+
+body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: -1;
+}
+
+.container {
+    max-width: 700px;
+    margin: auto;
+    padding: 2rem 1.5rem;
+}
+
+/* Glass Card Base Style */
+.glass-card {
+    background: rgba(255, 255, 255, 0.08);
+    border-radius: 1rem;
+    padding: 2.5rem;
+    backdrop-filter: blur(16px) saturate(180%);
+    -webkit-backdrop-filter: blur(16px) saturate(180%);
+    border: 1px solid rgba(153, 102, 204, 0.6);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    margin-bottom: 2rem;
+    position: relative;
+}
+
+/* Profile Section */
+.profile-section {
+    text-align: center;
+    margin-bottom: 1.5rem;
+}
+
+.avatar {
+    width: 130px;
+    height: 130px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid #9966cc;
+    box-shadow: 0 0 15px rgba(153, 102, 204, 0.7);
+}
+
+.online-indicator {
+    position: absolute;
+    bottom: 12px;
+    right: 12px;
+    background: #20c997;
+    border: 2px solid white;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+}
+
+.profile-name {
+    margin-top: 1.2rem;
+    font-size: 2rem;
+    font-weight: 600;
+    color: #e0e0e0;
+}
+
+.profile-bio {
+    font-size: 1.05rem;
+    color: #c0c0c0;
+    margin-bottom: 1.5rem;
+}
+
+/* Social Icons (Top Section) */
+.social-icons {
+    margin-top: 1.5rem;
+}
+
+.social-icon {
+    margin: 0 0.6rem;
+    color: #e0e0e0;
+    font-size: 1.5rem;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.social-icon:hover {
+    color: #bb99dd;
+}
+
+/* Social Links (Buttons) */
+.social-links {
+    display: flex;
+    flex-direction: column;
+    gap: 1.2rem;
+    margin-top: 2.5rem;
+    margin-bottom: 2.5rem;
+}
+
+.social-button {
+    display: flex;
+    align-items: center;
+    padding: 1rem 1.5rem;
+    background-color: rgba(0, 0, 0, 0.4);
+    border: 2px solid #9966cc;
+    border-radius: 0.85rem;
+    text-decoration: none;
+    color: #e0e0e0;
+    font-weight: 500;
+    box-shadow: 0 6px 12px rgba(0,0,0,0.3);
+    transition: all 0.3s ease-in-out;
+    justify-content: flex-start;
+}
+
+.social-button:hover {
+    transform: translateY(-5px) scale(1.03);
+    box-shadow: 0 12px 25px rgba(0,0,0,0.4);
+    background-color: rgba(153, 102, 204, 0.15);
+}
+
+.social-button i {
+    margin-right: 1rem;
+    font-size: 1.4rem;
+    color: #bb99dd; /* Default icon color */
+}
+
+/* Specific Social Button Icon Colors */
+.social-button .fab.fa-youtube { color: #ff0000; }
+.social-button .fab.fa-discord { color: #5865f2; }
+.social-button .fab.fa-facebook { color: #1877f2; }
+.social-button .fab.fa-tiktok { color: #ee1d52; }
+
+/* Showcase Section */
+.showcase-section h2 {
+    margin-top: 3rem;
+    margin-bottom: 1.8rem;
+    font-size: 1.9rem;
+    color: #e0e0e0;
+    text-align: center;
+}
+
+.showcase-section h2 i {
+    color: #9966cc;
+    margin-right: 0.6rem;
+}
+
+.showcase-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 1.2rem;
+    margin-bottom: 2rem;
+}
+
+.showcase-image {
+    width: 100%;
+    border-radius: 0.75rem;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+    transition: transform 0.2s ease;
+}
+
+.showcase-image:hover {
+    transform: scale(1.03);
+}
+
+.showcase-center {
+    text-align: center;
+    margin-top: 1.5rem;
+}
+
+/* Footer */
+.footer {
+    text-align: center;
+    font-size: 0.95rem;
+    color: #bbb;
+    padding-top: 1.5rem;
+    padding-bottom: 1rem;
+}
+
+.footer-main i {
+    color: #ec4899;
+}
+
+/* --- POPUP BASE STYLES (for both support and share) --- */
+.popup-overlay {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1000; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgba(0,0,0,0.7); /* Black w/ opacity */
+    backdrop-filter: blur(5px); /* Hiệu ứng blur */
+    -webkit-backdrop-filter: blur(5px); /* For Safari */
+    justify-content: center; /* Center horizontally */
+    align-items: center; /* Center vertically */
+    opacity: 0; /* For fade in/out animation */
+    transition: opacity 0.3s ease;
+}
+
+.popup-overlay.active {
+    display: flex;
+    opacity: 1;
+}
+
+.popup-content {
+    background-color: #333; /* Dark background for popup */
+    margin: auto;
+    padding: 25px;
+    border-radius: 15px;
+    width: 90%; /* Adjust width as needed */
+    max-width: 400px; /* Max width for larger screens */
+    box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+    position: relative;
+    color: #f0f0f0; /* Light text color */
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Example font */
+    transform: scale(0.95); /* For animation */
+    transition: transform 0.3s ease, opacity 0.3s ease;
+    opacity: 0;
+}
+
+.popup-overlay.active .popup-content {
+    transform: scale(1);
+    opacity: 1;
+}
+
+/* Close Button for Popups */
+.close-button {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    position: absolute;
+    top: 10px;
+    right: 20px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.close-button:hover,
+.close-button:focus {
+    color: #fff;
+    text-decoration: none;
+}
+
+/* Popup Header */
+.popup-header {
+    text-align: center;
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #444;
+}
+
+.popup-header h3 {
+    margin: 0;
+    font-size: 24px;
+    color: #8A2BE2; /* Purple color for heading */
+}
+
+/* --- SUPPORT POPUP SPECIFIC STYLES --- */
+.popup-body {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.qr-code {
+    width: 80%; /* Adjust QR code size */
+    max-width: 250px; /* Max width for QR */
+    height: auto;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    border: 3px solid #8A2BE2; /* Border around QR */
+    box-shadow: 0 0 10px rgba(138, 43, 226, 0.5); /* Glowing effect */
+}
+
+.bank-info p {
+    margin: 8px 0;
+    font-size: 16px;
+    line-height: 1.5;
+}
+
+.bank-info strong {
+    color: #FFD700; /* Gold color for labels */
+}
+
+/* Popup Footer */
+.popup-footer {
+    text-align: center;
+    margin-top: 20px;
+    padding-top: 10px;
+    border-top: 1px solid #444;
+}
+
+.popup-footer p {
+    font-size: 18px;
+    color: #f0f0f0;
+    font-style: italic;
+}
+
+
+/* --- SHARE POPUP SPECIFIC STYLES (Adjusted to common popup structure) --- */
+/* The .share-popup-content is now inside .popup-content with additional styles */
+.share-popup-content {
+    background: rgba(255, 255, 255, 0.1); /* Lighter background for share popup */
+    border: 1px solid rgba(153, 102, 204, 0.5); /* Stronger border */
+    backdrop-filter: blur(20px) saturate(180%);
+    -webkit-backdrop-filter: blur(20px) saturate(180%);
+}
+
+.share-popup-content h3 {
+    margin-bottom: 1.8rem;
+    font-size: 1.6rem;
+    color: #e0e0e0;
+}
+
+/* Close button was already covered by .close-button */
+
+.share-qr-wrapper {
+    position: relative;
+    width: 200px;
+    height: 200px;
+    margin: 0 auto 2rem auto;
+    background: white;
+    padding: 12px;
+    border-radius: 15px;
+    box-shadow: 0 6px 15px rgba(0,0,0,0.2);
+    overflow: hidden;
+    transform-style: preserve-3d;
+    perspective: 1000px;
+    transition: transform 0.3s ease;
+}
+
+.share-qr-image {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    display: block;
+    border-radius: 10px;
+    transition: opacity 0.3s ease, transform 0.3s ease;
+    backface-visibility: hidden;
+}
+
+.download-qr-overlay {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) rotateY(180deg);
+    background: rgba(0, 0, 0, 0.75);
+    color: #e0e0e0;
+    border: 2px solid #9966cc;
+    border-radius: 10px;
+    padding: 1rem 2rem;
+    font-size: 1.3rem;
+    font-weight: 600;
+    cursor: pointer;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease, transform 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    z-index: 10;
+    backface-visibility: hidden;
+}
+
+.share-qr-wrapper:hover {
+    transform: rotateY(12deg);
+}
+
+.share-qr-wrapper:hover .share-qr-image {
+    opacity: 0.3;
+    transform: rotateY(12deg);
+}
+
+.share-qr-wrapper:hover .download-qr-overlay {
+    opacity: 1;
+    visibility: visible;
+    transform: translate(-50%, -50%) rotateY(0deg);
+}
+
+.share-link-box {
+    display: flex;
+    align-items: center;
+    background-color: rgba(0, 0, 0, 0.4);
+    border-radius: 0.85rem;
+    padding: 0.6rem;
+    margin-top: 2rem;
+    border: 2px solid #9966cc;
+    box-shadow: 0 5px 10px rgba(0,0,0,0.25);
+}
+
+.share-link-box input {
+    flex-grow: 1;
+    border: none;
+    background: transparent;
+    outline: none;
+    font-size: 1.05rem;
+    color: #e0e0e0;
+    padding: 0.6rem 1rem;
+}
+
+.share-link-box button {
+    background-color: #9966cc;
+    color: #e0e0e0;
+    border: none;
+    border-radius: 0.6rem;
+    padding: 0.8rem 1.4rem;
+    cursor: pointer;
+    font-size: 1.05rem;
+    font-weight: 600;
+    transition: background-color 0.2s ease, transform 0.2s ease;
+}
+
+.share-link-box button:hover {
+    background-color: #bb99dd;
+    transform: translateY(-3px);
+}
+
+/* Card Top Left Share Button */
+.card-top-left-share-button {
+    position: absolute;
+    top: 1.2rem;
+    left: 1.2rem;
+    background: transparent;
+    border: 2px solid #9966cc;
+    border-radius: 50%;
+    width: 48px;
+    height: 48px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    z-index: 1;
+    box-shadow: 0 5px 12px rgba(0, 0, 0, 0.4);
+    transition: all 0.3s ease;
+}
+
+.card-top-left-share-button:hover {
+    background: rgba(153, 102, 204, 0.15);
+    transform: scale(1.08);
+}
+
+.card-top-left-share-button i {
+    color: #e0e0e0;
+    font-size: 1.5rem;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .container {
+        padding: 1.5rem 1rem;
+    }
+    .glass-card {
+        padding: 2rem;
+    }
+    .card-top-left-share-button {
+        top: 1rem;
+        left: 1rem;
+        width: 42px;
+        height: 42px;
+    }
+    .card-top-left-share-button i {
+        font-size: 1.3rem;
+    }
+    .popup-content { /* Applies to both popups */
+        padding: 1.8rem;
+    }
+    .popup-header h3 { /* Applies to both popups */
+        font-size: 1.4rem;
+    }
+    .qr-code { /* For support popup */
+        width: 70%;
+        max-width: 200px;
+    }
+    .bank-info p {
+        font-size: 14px;
+    }
+    .popup-footer p {
+        font-size: 16px;
+    }
+    .share-qr-wrapper {
+        width: 160px;
+        height: 160px;
+        padding: 10px;
+    }
+    .download-qr-overlay {
+        padding: 0.7rem 1.2rem;
+        font-size: 1.1rem;
+    }
+    .share-link-box input {
+        font-size: 0.95rem;
+    }
+    .share-link-box button {
+        padding: 0.6rem 1rem;
+        font-size: 0.95rem;
+    }
+    .avatar {
+        width: 100px;
+        height: 100px;
+    }
+    .online-indicator {
+        width: 14px;
+        height: 14px;
+        bottom: 8px;
+        right: 8px;
+    }
+    .profile-name {
+        font-size: 1.6rem;
+    }
+    .profile-bio {
+        font-size: 0.95rem;
+    }
+    .social-icon {
+        font-size: 1.2rem;
+    }
+    .social-button {
+        padding: 0.8rem 1rem;
+        font-size: 0.95rem;
+    }
+    .social-button i {
+        font-size: 1.1rem;
+        margin-right: 0.6rem;
+    }
+    .showcase-section h2 {
+        font-size: 1.5rem;
+    }
+    .showcase-grid {
+        gap: 0.8rem;
+    }
+}
