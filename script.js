@@ -1,117 +1,129 @@
-// Hiệu ứng gõ chữ tên
-const text = "Đảk Đảk Bủn Bủn Lmao Lmao";
-let index = 0;
-function type() {
-  if (index < text.length) {
-    document.getElementById("typing").innerHTML += text.charAt(index);
-    index++;
-    setTimeout(type, 100);
-  }
-}
-type();
+document.addEventListener('DOMContentLoaded', function() {
+    const typingElement = document.getElementById('typing');
+    const text = "Đảk Đảk Bủn Bủn Lmao Lmao";
+    let i = 0;
+    let isDeleting = false;
+    let charIndex = 0;
+    const typingSpeed = 150;
+    const deletingSpeed = 100;
+    const delayBetweenWords = 1000;
 
-// --- Popup Controller Functions (for Share Popup) ---
-function openPopup(popupId) {
-    const popup = document.getElementById(popupId);
-    if (popup) {
-        popup.style.display = 'flex'; // Ensure it's visible for animation
-        setTimeout(() => { // Small delay to allow display change to register before adding active class
-            popup.classList.add('active');
-        }, 10);
+    function typeWriter() {
+        const currentText = text.substring(0, charIndex);
+        typingElement.textContent = currentText;
+
+        if (!isDeleting && charIndex < text.length) {
+            charIndex++;
+            setTimeout(typeWriter, typingSpeed);
+        } else if (isDeleting && charIndex > 0) {
+            charIndex--;
+            setTimeout(typeWriter, deletingSpeed);
+        } else if (!isDeleting && charIndex === text.length) {
+            // No deleting needed for a single line of text
+        } else if (isDeleting && charIndex === 0) {
+            isDeleting = false;
+            // No next word, just stay
+        }
     }
-}
 
-function closePopup(popupId) {
-    const popup = document.getElementById(popupId);
-    if (popup) {
-        popup.classList.remove('active');
-        // Wait for the transition to finish before hiding with display: none
-        popup.addEventListener('transitionend', function handler() {
-            popup.style.display = 'none';
-            popup.removeEventListener('transitionend', handler);
-        }, { once: true }); // Use { once: true } to ensure listener is removed after first execution
-    }
-}
+    typeWriter();
 
-// --- Event Listeners for Share Popup ---
-const shareButton = document.getElementById('card-share-button');
-const sharePopup = document.getElementById('sharePopup');
-const closeSharePopupBtn = document.getElementById('close-share-popup');
-const bioLinkUrlInput = document.getElementById('bio-link-url');
-const copyBioLinkBtn = document.getElementById('copy-bio-link');
-const downloadQrOverlay = document.getElementById('download-qr-overlay');
-const bioLinkQrImage = document.getElementById('bio-link-qr-image');
+    // Share button functionality
+    const cardShareButton = document.getElementById('card-share-button');
+    const sharePopup = document.getElementById('sharePopup');
+    const closeSharePopup = document.getElementById('close-share-popup');
+    const bioLinkUrl = document.getElementById('bio-link-url');
+    const copyBioLinkButton = document.getElementById('copy-bio-link');
+    const downloadQrOverlay = document.getElementById('download-qr-overlay'); // Nút download QR share
+    const bioLinkQrImage = document.getElementById('bio-link-qr-image');
 
-if (shareButton) {
-    shareButton.addEventListener('click', function (e) {
-        e.preventDefault();
-        openPopup('sharePopup');
+    cardShareButton.addEventListener('click', function() {
+        sharePopup.classList.add('active');
+        // You might want to generate QR code dynamically here or ensure it's loaded
     });
-}
 
-if (closeSharePopupBtn) {
-    closeSharePopupBtn.addEventListener('click', function () {
-        closePopup('sharePopup');
+    closeSharePopup.addEventListener('click', function() {
+        sharePopup.classList.remove('active');
     });
-}
 
-// Close share popup if clicking outside content
-if (sharePopup) {
-    sharePopup.addEventListener('click', function (e) {
-        if (e.target === sharePopup) {
-            closePopup('sharePopup');
+    sharePopup.addEventListener('click', function(event) {
+        if (event.target === sharePopup) {
+            sharePopup.classList.remove('active');
         }
     });
-}
 
-// Copy Bio Link
-if (copyBioLinkBtn) {
-    copyBioLinkBtn.addEventListener('click', function () {
-        if (bioLinkUrlInput) {
-            bioLinkUrlInput.select();
-            bioLinkUrlInput.setSelectionRange(0, 99999); /* For mobile devices */
-            navigator.clipboard.writeText(bioLinkUrlInput.value)
-                .then(() => {
-                    const originalText = copyBioLinkBtn.textContent;
-                    copyBioLinkBtn.textContent = 'Đã sao chép!';
-                    copyBioLinkBtn.style.backgroundColor = '#28a745';
-                    setTimeout(() => {
-                        copyBioLinkBtn.textContent = originalText;
-                        copyBioLinkBtn.style.backgroundColor = '#9966cc'; // Changed to original button color
-                    }, 1500);
-                })
-                .catch(err => {
-                    console.error('Failed to copy text: ', err);
-                    alert('Không thể sao chép link. Vui lòng sao chép thủ công.');
-                });
-        }
+    copyBioLinkButton.addEventListener('click', function() {
+        bioLinkUrl.select();
+        bioLinkUrl.setSelectionRange(0, 99999); // For mobile devices
+        document.execCommand('copy');
+        alert('Đã sao chép link!'); // Optional: provide feedback
     });
-}
 
-// Tải xuống QR Code khi click vào lớp phủ "Tải xuống"
-if (downloadQrOverlay && bioLinkQrImage) {
     downloadQrOverlay.addEventListener('click', function() {
-        const qrImageUrl = bioLinkQrImage.src;
-
-        const link = document.createElement('a');
-        link.href = qrImageUrl;
-        link.download = 'QR_BaoBunLmaoLmao_sabyn.png';
-
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link);
+        const qrCodeSrc = bioLinkQrImage.src;
+        if (qrCodeSrc) {
+            const a = document.createElement('a');
+            a.href = qrCodeSrc;
+            a.download = 'BioLink_QR_Code.png'; // Suggested filename
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+        } else {
+            alert('Không tìm thấy mã QR để tải xuống.');
+        }
     });
-}
 
-// --- Music Playback ---
-const bgMusic = document.getElementById('bg-music');
+    // Donate QR Download Functionality
+    const downloadDonateQrButton = document.getElementById('download-donate-qr'); // Nút download QR donate
+    const donateQrImage = document.querySelector('.support-qr-code'); // Hình ảnh QR donate
 
-document.addEventListener('DOMContentLoaded', () => {
-    if (bgMusic) {
-        bgMusic.volume = 0.5; // Điều chỉnh âm lượng (0.0 đến 1.0)
-        bgMusic.play().catch(error => {
-            console.warn("Autoplay was prevented:", error);
-            // Có thể hiển thị một thông báo cho người dùng nếu nhạc không tự động phát
-        });
-    }
+    downloadDonateQrButton.addEventListener('click', function() {
+        const qrCodeSrc = donateQrImage.src;
+        if (qrCodeSrc) {
+            const a = document.createElement('a');
+            a.href = qrCodeSrc;
+            a.download = 'Donate_QR_Code.png'; // Tên file tải xuống cho QR donate
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+        } else {
+            alert('Không tìm thấy mã QR donate để tải xuống.');
+        }
+    });
+
+
+    // Music Control Functionality
+    const bgMusic = document.getElementById('bg-music');
+    const toggleMusicButton = document.getElementById('toggle-music-button');
+    let isMusicPlaying = false; // Theo dõi trạng thái nhạc
+
+    // Kiểm tra nếu trình duyệt cho phép tự động phát nhạc
+    bgMusic.play().then(() => {
+        isMusicPlaying = true;
+        toggleMusicButton.querySelector('i').classList.remove('fa-volume-mute');
+        toggleMusicButton.querySelector('i').classList.add('fa-volume-up');
+        toggleMusicButton.classList.add('playing');
+    }).catch(error => {
+        isMusicPlaying = false;
+        toggleMusicButton.querySelector('i').classList.remove('fa-volume-up');
+        toggleMusicButton.querySelector('i').classList.add('fa-volume-mute');
+        toggleMusicButton.classList.remove('playing');
+        console.log('Autoplay bị chặn, người dùng cần click để bật nhạc:', error);
+    });
+
+    toggleMusicButton.addEventListener('click', function() {
+        if (isMusicPlaying) {
+            bgMusic.pause();
+            toggleMusicButton.querySelector('i').classList.remove('fa-volume-up');
+            toggleMusicButton.querySelector('i').classList.add('fa-volume-mute');
+            toggleMusicButton.classList.remove('playing');
+        } else {
+            bgMusic.play();
+            toggleMusicButton.querySelector('i').classList.remove('fa-volume-mute');
+            toggleMusicButton.querySelector('i').classList.add('fa-volume-up');
+            toggleMusicButton.classList.add('playing');
+        }
+        isMusicPlaying = !isMusicPlaying; // Đảo ngược trạng thái
+    });
+
 });

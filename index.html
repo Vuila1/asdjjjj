@@ -23,6 +23,10 @@
             <i class="fas fa-share-alt"></i>
         </div>
 
+        <button id="toggle-music-button" class="music-button card-top-right-music-button" title="Bật/Tắt nhạc nền">
+            <i class="fas fa-volume-up"></i>
+        </button>
+
         <div style="position: relative; display: inline-block;">
             <img src="img/avatar.jpeg" alt="Profile Avatar" class="avatar">
             <div class="online-indicator"></div>
@@ -45,7 +49,12 @@
 
     <div class="glass-card support-section">
         <h2><i class="fas fa-qrcode" style="color: #8A2BE2; margin-right: 0.5rem;"></i>Ủng hộ Em Bủn</h2>
-        <img src="img/QR.png" alt="QR Code Ngân Hàng" class="support-qr-code">
+        <div class="support-qr-wrapper">
+            <img src="img/QR.png" alt="QR Code Ngân Hàng" class="support-qr-code">
+            <button class="download-qr-overlay" id="download-donate-qr">
+                <i class="fas fa-download"></i> Tải xuống QR này
+            </button>
+        </div>
         <div class="support-bank-info">
             <p><strong>Ngân hàng:</strong> Kỹ Thương (TCB)</p>
             <p><strong>Số tài khoản:</strong> 9900270500</p>
@@ -75,7 +84,7 @@
     </div>
 </div>
 
-<audio id="bg-music" src="music/background.mp3" autoplay loop></audio>
+<audio id="bg-music" src="music/background.mp3" loop></audio>
 
 <div id="sharePopup" class="popup-overlay">
     <div class="popup-content share-popup-content" onclick="event.stopPropagation()">

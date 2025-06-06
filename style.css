@@ -2,7 +2,6 @@
 body {
     font-family: 'Poppins', 'Inter', sans-serif;
     background-color: black;
-    /* Đã thay đổi từ background.jpg sang background.gif */
     background: url("img/background.gif") no-repeat center center fixed;
     background-size: cover;
     margin: 0;
@@ -74,10 +73,81 @@ body::before {
 .profile-bio {
     font-size: 1.05rem;
     color: #c0c0c0;
-    margin-bottom: 1.5rem;
+    margin-bottom: 2.5rem;
 }
 
-/* Social Icons (All social links now use this styling) */
+/* Card Top Left Share Button */
+.card-top-left-share-button {
+    position: absolute;
+    top: 1.2rem;
+    left: 1.2rem;
+    background: transparent;
+    border: 2px solid #9966cc;
+    border-radius: 50%;
+    width: 48px;
+    height: 48px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    z-index: 1;
+    box-shadow: 0 5px 12px rgba(0, 0, 0, 0.4);
+    transition: all 0.3s ease;
+}
+
+.card-top-left-share-button:hover {
+    background: rgba(153, 102, 204, 0.15);
+    transform: scale(1.08);
+}
+
+.card-top-left-share-button i {
+    color: #e0e0e0;
+    font-size: 1.5rem;
+}
+
+/* Card Top Right Music Button */
+.card-top-right-music-button {
+    position: absolute;
+    top: 1.2rem;
+    right: 1.2rem;
+}
+
+/* Music Control Button (General styles for music button) */
+.music-button {
+    background: rgba(153, 102, 204, 0.3);
+    border: 1px solid #9966cc;
+    border-radius: 50%;
+    width: 48px;
+    height: 48px;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+    transition: all 0.3s ease;
+    color: #e0e0e0;
+    font-size: 1.5rem;
+    outline: none;
+    z-index: 1;
+}
+
+.music-button:hover {
+    background-color: rgba(153, 102, 204, 0.5);
+    transform: translateY(-3px) scale(1.08);
+    box-shadow: 0 8px 18px rgba(0,0,0,0.4);
+}
+
+.music-button.playing {
+    background-color: rgba(32, 201, 151, 0.4);
+    border-color: #20c997;
+}
+
+.music-button.playing:hover {
+    background-color: rgba(32, 201, 151, 0.6);
+}
+
+
+/* Social Icons */
 .social-icons {
     margin-top: 1.5rem;
     display: flex;
@@ -87,7 +157,6 @@ body::before {
 }
 
 .social-icon {
-    margin: 0 0.6rem;
     color: #e0e0e0;
     font-size: 1.5rem;
     text-decoration: none;
@@ -110,7 +179,7 @@ body::before {
     box-shadow: 0 8px 18px rgba(0,0,0,0.4);
 }
 
-/* Specific Social Button Icon Colors (now applied to .social-icon) */
+/* Specific Social Icon Colors */
 .social-icon .fab.fa-youtube { color: #ff0000; }
 .social-icon .fab.fa-discord { color: #5865f2; }
 .social-icon .fab.fa-facebook-f { color: #1877f2; }
@@ -136,15 +205,80 @@ body::before {
     margin-right: 0.6rem;
 }
 
-.support-qr-code {
+/* Wrapper cho QR code donate và nút tải xuống */
+.support-qr-wrapper {
+    position: relative;
     width: 80%;
     max-width: 250px;
     height: auto;
-    border-radius: 10px;
-    margin-bottom: 20px;
+    margin: 0 auto 20px auto;
+    background: white;
+    padding: 12px;
+    border-radius: 15px;
+    box-shadow: 0 6px 15px rgba(0,0,0,0.2);
+    overflow: hidden;
+    transform-style: preserve-3d;
+    perspective: 1000px;
+    transition: transform 0.3s ease;
     border: 3px solid #8A2BE2;
-    box-shadow: 0 0 10px rgba(138, 43, 226, 0.5);
 }
+
+/* Hover effects for support-qr-wrapper */
+.support-qr-wrapper:hover {
+    transform: translateY(5px);
+}
+
+.support-qr-wrapper:hover .support-qr-code {
+    opacity: 0.3;
+}
+
+.support-qr-wrapper:hover .download-qr-overlay {
+    opacity: 1;
+    visibility: visible;
+    transform: translate(-50%, -50%) rotateY(0deg);
+}
+
+
+/* Apply general QR image styles for both share and support QR */
+.support-qr-code, .share-qr-image {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    display: block;
+    border-radius: 10px;
+    transition: opacity 0.3s ease, transform 0.3s ease;
+    backface-visibility: hidden;
+}
+
+/* Apply general download overlay styles for both share and support QR */
+.download-qr-overlay {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) rotateY(180deg);
+    background: rgba(0, 0, 0, 0.75);
+    color: #e0e0e0;
+    border: 2px solid #9966cc;
+    border-radius: 10px;
+    padding: 1rem 2rem;
+    font-size: 1.3rem;
+    font-weight: 600;
+    cursor: pointer;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease, transform 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    z-index: 10;
+    backface-visibility: hidden;
+}
+
+/* Specific border color for donate download button if needed */
+.support-qr-wrapper .download-qr-overlay {
+    border: 2px solid #8A2BE2;
+}
+
 
 .support-bank-info p {
     margin: 8px 0;
@@ -166,12 +300,15 @@ body::before {
 }
 
 /* Showcase Section */
+.showcase-section {
+    text-align: center;
+}
+
 .showcase-section h2 {
     margin-top: 3rem;
     margin-bottom: 1.8rem;
     font-size: 1.9rem;
     color: #e0e0e0;
-    text-align: center;
 }
 
 .showcase-section h2 i {
@@ -215,7 +352,7 @@ body::before {
     color: #ec4899;
 }
 
-/* --- POPUP BASE STYLES (for share) --- */
+/* Popup Base Styles (for share) */
 .popup-overlay {
     display: none;
     position: fixed;
@@ -293,7 +430,7 @@ body::before {
     color: #8A2BE2;
 }
 
-/* --- SHARE POPUP SPECIFIC STYLES --- */
+/* Share Popup Specific Styles */
 .share-popup-content {
     background: rgba(255, 255, 255, 0.1);
     border: 1px solid rgba(153, 102, 204, 0.5);
@@ -320,39 +457,6 @@ body::before {
     transform-style: preserve-3d;
     perspective: 1000px;
     transition: transform 0.3s ease;
-}
-
-.share-qr-image {
-    width: 100%;
-    height: 100%;
-    object-fit: contain;
-    display: block;
-    border-radius: 10px;
-    transition: opacity 0.3s ease, transform 0.3s ease;
-    backface-visibility: hidden;
-}
-
-.download-qr-overlay {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%) rotateY(180deg);
-    background: rgba(0, 0, 0, 0.75);
-    color: #e0e0e0;
-    border: 2px solid #9966cc;
-    border-radius: 10px;
-    padding: 1rem 2rem;
-    font-size: 1.3rem;
-    font-weight: 600;
-    cursor: pointer;
-    opacity: 0;
-    visibility: hidden;
-    transition: opacity 0.3s ease, visibility 0.3s ease, transform 0.3s ease;
-    display: flex;
-    align-items: center;
-    gap: 0.75rem;
-    z-index: 10;
-    backface-visibility: hidden;
 }
 
 .share-qr-wrapper:hover {
@@ -408,35 +512,6 @@ body::before {
     transform: translateY(-3px);
 }
 
-/* Card Top Left Share Button */
-.card-top-left-share-button {
-    position: absolute;
-    top: 1.2rem;
-    left: 1.2rem;
-    background: transparent;
-    border: 2px solid #9966cc;
-    border-radius: 50%;
-    width: 48px;
-    height: 48px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    cursor: pointer;
-    z-index: 1;
-    box-shadow: 0 5px 12px rgba(0, 0, 0, 0.4);
-    transition: all 0.3s ease;
-}
-
-.card-top-left-share-button:hover {
-    background: rgba(153, 102, 204, 0.15);
-    transform: scale(1.08);
-}
-
-.card-top-left-share-button i {
-    color: #e0e0e0;
-    font-size: 1.5rem;
-}
-
 /* Responsive adjustments */
 @media (max-width: 768px) {
     .container {
@@ -454,13 +529,20 @@ body::before {
     .card-top-left-share-button i {
         font-size: 1.3rem;
     }
+    .card-top-right-music-button {
+        top: 1rem;
+        right: 1rem;
+        width: 42px;
+        height: 42px;
+        font-size: 1.3rem;
+    }
     .popup-content {
         padding: 1.8rem;
     }
     .popup-header h3 {
         font-size: 1.4rem;
     }
-    .support-qr-code {
+    .support-qr-wrapper {
         width: 70%;
         max-width: 200px;
     }
