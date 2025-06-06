@@ -2,7 +2,8 @@
 body {
     font-family: 'Poppins', 'Inter', sans-serif;
     background-color: black;
-    background: url("img/background.jpg") no-repeat center center fixed;
+    /* Đã thay đổi từ background.jpg sang background.gif */
+    background: url("img/background.gif") no-repeat center center fixed;
     background-size: cover;
     margin: 0;
     padding: 0;
@@ -76,9 +77,13 @@ body::before {
     margin-bottom: 1.5rem;
 }
 
-/* Social Icons (Top Section) */
+/* Social Icons (All social links now use this styling) */
 .social-icons {
     margin-top: 1.5rem;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 1.2rem;
 }
 
 .social-icon {
@@ -86,54 +91,79 @@ body::before {
     color: #e0e0e0;
     font-size: 1.5rem;
     text-decoration: none;
-    transition: color 0.3s ease;
+    transition: color 0.3s ease, transform 0.3s ease;
+    background: rgba(0, 0, 0, 0.3);
+    border: 1px solid #9966cc;
+    border-radius: 50%;
+    width: 48px;
+    height: 48px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.3);
 }
 
 .social-icon:hover {
     color: #bb99dd;
+    transform: translateY(-3px) scale(1.1);
+    background-color: rgba(153, 102, 204, 0.2);
+    box-shadow: 0 8px 18px rgba(0,0,0,0.4);
 }
 
-/* Social Links (Buttons) */
-.social-links {
-    display: flex;
-    flex-direction: column;
-    gap: 1.2rem;
-    margin-top: 2.5rem;
-    margin-bottom: 2.5rem;
+/* Specific Social Button Icon Colors (now applied to .social-icon) */
+.social-icon .fab.fa-youtube { color: #ff0000; }
+.social-icon .fab.fa-discord { color: #5865f2; }
+.social-icon .fab.fa-facebook-f { color: #1877f2; }
+.social-icon .fab.fa-facebook { color: #1877f2; }
+.social-icon .fab.fa-tiktok { color: #ee1d52; }
+.social-icon .fas.fa-gamepad { color: #9966cc; }
+
+
+/* Dedicated Support Section */
+.support-section {
+    text-align: center;
 }
 
-.social-button {
-    display: flex;
-    align-items: center;
-    padding: 1rem 1.5rem;
-    background-color: rgba(0, 0, 0, 0.4);
-    border: 2px solid #9966cc;
-    border-radius: 0.85rem;
-    text-decoration: none;
+.support-section h2 {
+    margin-top: 0;
+    margin-bottom: 1.8rem;
+    font-size: 1.9rem;
     color: #e0e0e0;
-    font-weight: 500;
-    box-shadow: 0 6px 12px rgba(0,0,0,0.3);
-    transition: all 0.3s ease-in-out;
-    justify-content: flex-start;
 }
 
-.social-button:hover {
-    transform: translateY(-5px) scale(1.03);
-    box-shadow: 0 12px 25px rgba(0,0,0,0.4);
-    background-color: rgba(153, 102, 204, 0.15);
+.support-section h2 i {
+    color: #9966cc;
+    margin-right: 0.6rem;
 }
 
-.social-button i {
-    margin-right: 1rem;
-    font-size: 1.4rem;
-    color: #bb99dd; /* Default icon color */
+.support-qr-code {
+    width: 80%;
+    max-width: 250px;
+    height: auto;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    border: 3px solid #8A2BE2;
+    box-shadow: 0 0 10px rgba(138, 43, 226, 0.5);
 }
 
-/* Specific Social Button Icon Colors */
-.social-button .fab.fa-youtube { color: #ff0000; }
-.social-button .fab.fa-discord { color: #5865f2; }
-.social-button .fab.fa-facebook { color: #1877f2; }
-.social-button .fab.fa-tiktok { color: #ee1d52; }
+.support-bank-info p {
+    margin: 8px 0;
+    font-size: 16px;
+    line-height: 1.5;
+}
+
+.support-bank-info strong {
+    color: #FFD700;
+}
+
+.support-footer-text {
+    font-size: 18px;
+    color: #f0f0f0;
+    font-style: italic;
+    margin-top: 20px;
+    padding-top: 10px;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
 
 /* Showcase Section */
 .showcase-section h2 {
@@ -145,7 +175,7 @@ body::before {
 }
 
 .showcase-section h2 i {
-    color: #9966cc;
+    color: #ffd700;
     margin-right: 0.6rem;
 }
 
@@ -185,22 +215,22 @@ body::before {
     color: #ec4899;
 }
 
-/* --- POPUP BASE STYLES (for both support and share) --- */
+/* --- POPUP BASE STYLES (for share) --- */
 .popup-overlay {
-    display: none; /* Hidden by default */
-    position: fixed; /* Stay in place */
-    z-index: 1000; /* Sit on top */
+    display: none;
+    position: fixed;
+    z-index: 1000;
     left: 0;
     top: 0;
-    width: 100%; /* Full width */
-    height: 100%; /* Full height */
-    overflow: auto; /* Enable scroll if needed */
-    background-color: rgba(0,0,0,0.7); /* Black w/ opacity */
-    backdrop-filter: blur(5px); /* Hiệu ứng blur */
-    -webkit-backdrop-filter: blur(5px); /* For Safari */
-    justify-content: center; /* Center horizontally */
-    align-items: center; /* Center vertically */
-    opacity: 0; /* For fade in/out animation */
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0,0,0,0.7);
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
     transition: opacity 0.3s ease;
 }
 
@@ -210,17 +240,17 @@ body::before {
 }
 
 .popup-content {
-    background-color: #333; /* Dark background for popup */
+    background-color: #333;
     margin: auto;
     padding: 25px;
     border-radius: 15px;
-    width: 90%; /* Adjust width as needed */
-    max-width: 400px; /* Max width for larger screens */
+    width: 90%;
+    max-width: 400px;
     box-shadow: 0 5px 15px rgba(0,0,0,0.5);
     position: relative;
-    color: #f0f0f0; /* Light text color */
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Example font */
-    transform: scale(0.95); /* For animation */
+    color: #f0f0f0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    transform: scale(0.95);
     transition: transform 0.3s ease, opacity 0.3s ease;
     opacity: 0;
 }
@@ -260,55 +290,13 @@ body::before {
 .popup-header h3 {
     margin: 0;
     font-size: 24px;
-    color: #8A2BE2; /* Purple color for heading */
+    color: #8A2BE2;
 }
 
-/* --- SUPPORT POPUP SPECIFIC STYLES --- */
-.popup-body {
-    text-align: center;
-    margin-bottom: 20px;
-}
-
-.qr-code {
-    width: 80%; /* Adjust QR code size */
-    max-width: 250px; /* Max width for QR */
-    height: auto;
-    border-radius: 10px;
-    margin-bottom: 20px;
-    border: 3px solid #8A2BE2; /* Border around QR */
-    box-shadow: 0 0 10px rgba(138, 43, 226, 0.5); /* Glowing effect */
-}
-
-.bank-info p {
-    margin: 8px 0;
-    font-size: 16px;
-    line-height: 1.5;
-}
-
-.bank-info strong {
-    color: #FFD700; /* Gold color for labels */
-}
-
-/* Popup Footer */
-.popup-footer {
-    text-align: center;
-    margin-top: 20px;
-    padding-top: 10px;
-    border-top: 1px solid #444;
-}
-
-.popup-footer p {
-    font-size: 18px;
-    color: #f0f0f0;
-    font-style: italic;
-}
-
-
-/* --- SHARE POPUP SPECIFIC STYLES (Adjusted to common popup structure) --- */
-/* The .share-popup-content is now inside .popup-content with additional styles */
+/* --- SHARE POPUP SPECIFIC STYLES --- */
 .share-popup-content {
-    background: rgba(255, 255, 255, 0.1); /* Lighter background for share popup */
-    border: 1px solid rgba(153, 102, 204, 0.5); /* Stronger border */
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(153, 102, 204, 0.5);
     backdrop-filter: blur(20px) saturate(180%);
     -webkit-backdrop-filter: blur(20px) saturate(180%);
 }
@@ -318,8 +306,6 @@ body::before {
     font-size: 1.6rem;
     color: #e0e0e0;
 }
-
-/* Close button was already covered by .close-button */
 
 .share-qr-wrapper {
     position: relative;
@@ -468,20 +454,20 @@ body::before {
     .card-top-left-share-button i {
         font-size: 1.3rem;
     }
-    .popup-content { /* Applies to both popups */
+    .popup-content {
         padding: 1.8rem;
     }
-    .popup-header h3 { /* Applies to both popups */
+    .popup-header h3 {
         font-size: 1.4rem;
     }
-    .qr-code { /* For support popup */
+    .support-qr-code {
         width: 70%;
         max-width: 200px;
     }
-    .bank-info p {
+    .support-bank-info p {
         font-size: 14px;
     }
-    .popup-footer p {
+    .support-footer-text {
         font-size: 16px;
     }
     .share-qr-wrapper {
@@ -518,19 +504,10 @@ body::before {
     }
     .social-icon {
         font-size: 1.2rem;
+        width: 40px;
+        height: 40px;
     }
-    .social-button {
-        padding: 0.8rem 1rem;
-        font-size: 0.95rem;
-    }
-    .social-button i {
-        font-size: 1.1rem;
-        margin-right: 0.6rem;
-    }
-    .showcase-section h2 {
-        font-size: 1.5rem;
-    }
-    .showcase-grid {
+    .social-icons {
         gap: 0.8rem;
     }
 }

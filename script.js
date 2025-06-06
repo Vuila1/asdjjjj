@@ -10,7 +10,7 @@ function type() {
 }
 type();
 
-// --- Popup Controller Functions ---
+// --- Popup Controller Functions (for Share Popup) ---
 function openPopup(popupId) {
     const popup = document.getElementById(popupId);
     if (popup) {
@@ -32,35 +32,6 @@ function closePopup(popupId) {
         }, { once: true }); // Use { once: true } to ensure listener is removed after first execution
     }
 }
-
-// --- Event Listeners for Support Popup ---
-const supportButton = document.getElementById('support-live-button');
-const supportPopup = document.getElementById('supportPopup');
-const closeSupportPopupBtn = document.getElementById('close-support-popup');
-
-if (supportButton) {
-    supportButton.addEventListener('click', function (e) {
-        e.preventDefault();
-        openPopup('supportPopup');
-    });
-}
-
-if (closeSupportPopupBtn) {
-    closeSupportPopupBtn.addEventListener('click', function () {
-        closePopup('supportPopup');
-    });
-}
-
-// Close support popup if clicking outside content
-if (supportPopup) {
-    supportPopup.addEventListener('click', function (e) {
-        // Ensure click is directly on the overlay, not inside popup-content
-        if (e.target === supportPopup) {
-            closePopup('supportPopup');
-        }
-    });
-}
-
 
 // --- Event Listeners for Share Popup ---
 const shareButton = document.getElementById('card-share-button');
@@ -116,7 +87,6 @@ if (copyBioLinkBtn) {
         }
     });
 }
-
 
 // Tải xuống QR Code khi click vào lớp phủ "Tải xuống"
 if (downloadQrOverlay && bioLinkQrImage) {
