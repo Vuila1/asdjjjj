@@ -73,8 +73,13 @@ body::before {
 .profile-bio {
     font-size: 1.05rem;
     color: #c0c0c0;
-    margin-bottom: 1.5rem;
+    margin-bottom: 0.5rem; /* Đã chỉnh khoảng cách */
     line-height: 1.5;
+}
+
+.profile-bio.live-info {
+    margin-top: 0.5rem; /* Khoảng cách từ dòng trên xuống */
+    margin-bottom: 2.5rem; /* Khoảng cách dưới dòng này để giữ bố cục */
 }
 
 /* Card Top Left Share Button */
@@ -183,12 +188,12 @@ body::before {
 
 .social-icon:hover {
     color: #bb99dd;
-    transform: scale(1.15);
+    transform: scale(1.15); /* Chỉ scale, không translateY để giữ bố cục */
     background-color: rgba(153, 102, 204, 0.3);
     border: 2px solid #bb99dd;
     box-shadow: 0 0 15px rgba(153, 102, 204, 0.7);
 }
-}
+
 
 /* Specific Social Icon Colors */
 .social-icon .fab.fa-youtube { color: #ff0000; }
@@ -603,4 +608,30 @@ body::before {
     .social-icons {
         gap: 0.8rem;
     }
+}
+
+/* Dòng bản quyền ẩn, chỉ hiện khi F12 */
+#copyright-hidden-text {
+    position: absolute;
+    left: -9999px;
+    top: -9999px;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    opacity: 0;
+    pointer-events: none;
+    user-select: none;
+    white-space: nowrap;
+
+    /* Styles khi được phát hiện trong DevTools */
+    color: #555;
+    font-size: 10px;
+    text-align: center;
+    width: auto;
+    height: auto;
+}
+
+#copyright-hidden-text p {
+    margin: 0;
+    padding: 0;
 }
