@@ -2,11 +2,12 @@
 body {
     font-family: 'Poppins', 'Inter', sans-serif;
     background-color: black;
+    /* CẬP NHẬT CÁCH HIỂN THỊ BACKGROUND ĐỂ TƯƠNG THÍCH HƠN VỚI IOS */
     background-image: url("img/background.gif");
     background-position: center center;
     background-repeat: no-repeat;
     background-size: cover;
-    background-attachment: scroll; /* Changed from fixed to scroll for iOS compatibility */
+    background-attachment: scroll; /* Đã thay đổi từ fixed sang scroll cho tương thích iOS */
     margin: 0;
     padding: 0;
     color: white;
@@ -155,7 +156,7 @@ body::before {
 
 .support-qr-wrapper {
     position: relative;
-    display: inline-block; /* Để căn giữa */
+    display: inline-block; /* Để wrapper có thể căn giữa nó tự động trong text-align: center; của parent */
     background-color: rgba(255, 255, 255, 0.9); /* Nền trắng cho QR */
     padding: 1rem;
     border-radius: 0.8rem;
@@ -163,17 +164,20 @@ body::before {
     margin-bottom: 1.5rem;
     width: 200px; /* Kích thước cố định cho QR wrapper */
     height: 200px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    overflow: hidden; /* Ensure QR code fits */
+    display: flex; /* Sử dụng flexbox để căn giữa nội dung con */
+    justify-content: center; /* Căn giữa theo chiều ngang */
+    align-items: center;     /* Căn giữa theo chiều dọc */
+    overflow: hidden; /* Đảm bảo không có gì tràn ra ngoài */
 }
 
 .support-qr-code {
     width: 100%;
     height: 100%;
-    object-fit: contain; /* Đảm bảo hình ảnh QR vừa với khung */
+    object-fit: contain; /* Đảm bảo hình ảnh QR vừa với khung mà không bị méo */
     border-radius: 0.5rem;
+    /* Thêm các thuộc tính này để tăng tính ổn định khi căn giữa ảnh trong flex container */
+    display: block;
+    margin: auto;
 }
 
 .download-qr-overlay {
@@ -365,6 +369,9 @@ body::before {
     height: 100%;
     object-fit: contain;
     border-radius: 0.5rem;
+    /* Thêm các thuộc tính này để tăng tính ổn định khi căn giữa ảnh trong flex container */
+    display: block;
+    margin: auto;
 }
 
 .share-link-box {
