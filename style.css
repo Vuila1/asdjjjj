@@ -2,8 +2,11 @@
 body {
     font-family: 'Poppins', 'Inter', sans-serif;
     background-color: black;
-    background: url("img/background.gif") no-repeat center center fixed;
+    background-image: url("img/background.gif");
+    background-position: center center;
+    background-repeat: no-repeat;
     background-size: cover;
+    background-attachment: scroll; /* Changed from fixed to scroll for iOS compatibility */
     margin: 0;
     padding: 0;
     color: white;
@@ -34,285 +37,189 @@ body::before {
     border: 1px solid rgba(153, 102, 204, 0.6);
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
     margin-bottom: 2rem;
-    position: relative;
+    text-align: center;
+    position: relative; /* Needed for share button absolute positioning */
 }
 
 /* Profile Section */
 .profile-section {
-    text-align: center;
-    margin-bottom: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.8rem;
+    padding-bottom: 1.5rem; /* Add padding for the "Live from..." text */
 }
 
 .avatar {
-    width: 130px;
-    height: 130px;
+    width: 120px;
+    height: 120px;
     border-radius: 50%;
     object-fit: cover;
-    border: 3px solid #9966cc;
-    box-shadow: 0 0 15px rgba(153, 102, 204, 0.7);
+    border: 3px solid #9966cc; /* Purple border */
+    box-shadow: 0 0 15px rgba(153, 102, 204, 0.7); /* Purple glow */
+    margin-bottom: 0.5rem;
 }
 
 .online-indicator {
     position: absolute;
-    bottom: 12px;
-    right: 12px;
-    background: #20c997;
-    border: 2px solid white;
-    width: 18px;
-    height: 18px;
+    width: 16px;
+    height: 16px;
+    background-color: #32CD32; /* LimeGreen */
     border-radius: 50%;
+    border: 2px solid white;
+    bottom: 15px; /* Điều chỉnh vị trí indicator */
+    right: calc(50% - 60px + 5px); /* Khoảng cách từ bên phải của avatar + một chút offset */
+    transform: translateX(50%);
+    z-index: 10;
 }
 
 .profile-name {
-    margin-top: 1.2rem;
-    font-size: 2rem;
-    font-weight: 600;
-    color: #e0e0e0;
+    font-family: 'Poppins', sans-serif;
+    font-size: 2.2rem;
+    color: #fff;
+    margin: 0.5rem 0 0.2rem;
+    letter-spacing: 0.05em;
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+    min-height: 2.2rem; /* Ensure space for typing effect */
 }
 
 .profile-bio {
-    font-size: 1.05rem;
-    color: #c0c0c0;
-    margin-bottom: 0.5rem; /* Đã chỉnh khoảng cách */
+    font-family: 'Inter', sans-serif;
+    font-size: 1rem;
+    color: #e0e0e0;
+    margin: 0;
     line-height: 1.5;
 }
 
-.profile-bio.live-info {
-    margin-top: 0.5rem; /* Khoảng cách từ dòng trên xuống */
-    margin-bottom: 2.5rem; /* Khoảng cách dưới dòng này để giữ bố cục */
+.live-info {
+    font-size: 0.9rem;
+    color: #ffd700; /* Gold color for live info */
+    margin-top: 0.5rem;
+    font-weight: 500;
 }
 
-/* Card Top Left Share Button */
-.card-top-left-share-button {
-    position: absolute;
-    top: 1.2rem;
-    left: 1.2rem;
-    background: transparent;
-    border: 2px solid #9966cc;
-    border-radius: 50%;
-    width: 48px;
-    height: 48px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    cursor: pointer;
-    z-index: 1;
-    box-shadow: 0 5px 12px rgba(0, 0, 0, 0.4);
-    transition: all 0.3s ease;
-}
-
-.card-top-left-share-button:hover {
-    background: rgba(153, 102, 204, 0.15);
-    transform: scale(1.08);
-    border: 2px solid #bb99dd;
-    box-shadow: 0 0 15px rgba(153, 102, 204, 0.7);
-}
-
-.card-top-left-share-button i {
-    color: #e0e0e0;
-    font-size: 1.5rem;
-}
-
-/* Card Top Right Music Button */
-.card-top-right-music-button {
-    position: absolute;
-    top: 1.2rem;
-    right: 1.2rem;
-}
-
-/* Music Control Button (General styles for music button) */
-.music-button {
-    background: transparent;
-    border: 1px solid #9966cc;
-    border-radius: 50%;
-    width: 48px;
-    height: 48px;
-    display: inline-flex;
-    justify-content: center;
-    align-items: center;
-    cursor: pointer;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.3);
-    transition: all 0.3s ease;
-    color: #e0e0e0;
-    font-size: 1.5rem;
-    outline: none;
-    z-index: 1;
-}
-
-.music-button:hover {
-    background-color: rgba(153, 102, 204, 0.25);
-    transform: translateY(-3px) scale(1.08);
-    border: 2px solid #bb99dd;
-    box-shadow: 0 0 15px rgba(153, 102, 204, 0.7);
-}
-
-.music-button.playing {
-    background-color: rgba(153, 102, 204, 0.3);
-    border-color: #9966cc;
-    color: #9966cc;
-    box-shadow: 0 0 15px rgba(153, 102, 204, 0.7);
-}
-
-.music-button.playing:hover {
-    background-color: rgba(153, 102, 204, 0.5);
-    color: #bb99dd;
-    border-color: #bb99dd;
-    box-shadow: 0 0 20px rgba(153, 102, 204, 0.9);
-}
-
-
-/* Social Icons */
 .social-icons {
     margin-top: 1.5rem;
     display: flex;
-    justify-content: center;
     flex-wrap: wrap;
-    gap: 1.2rem;
+    justify-content: center;
+    gap: 1rem; /* Khoảng cách giữa các icon */
 }
 
 .social-icon {
-    color: #e0e0e0;
-    font-size: 1.5rem;
-    text-decoration: none;
-    transition: color 0.3s ease, transform 0.3s ease, background-color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
-    background: rgba(0, 0, 0, 0.3);
-    border: 1px solid #9966cc;
-    border-radius: 50%;
-    width: 48px;
-    height: 48px;
-    display: flex;
+    display: inline-flex;
     justify-content: center;
     align-items: center;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+    width: 48px; /* Tăng kích thước nút */
+    height: 48px; /* Tăng kích thước nút */
+    background-color: rgba(255, 255, 255, 0.1);
+    border-radius: 50%;
+    color: white;
+    font-size: 1.3rem; /* Tăng kích thước icon */
+    transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+    text-decoration: none;
+    border: 1px solid rgba(255, 255, 255, 0.2); /* Thêm viền nhẹ */
 }
 
 .social-icon:hover {
-    color: #bb99dd;
-    transform: scale(1.15); /* Chỉ scale, không translateY để giữ bố cục */
-    background-color: rgba(153, 102, 204, 0.3);
-    border: 2px solid #bb99dd;
-    box-shadow: 0 0 15px rgba(153, 102, 204, 0.7);
+    background-color: rgba(153, 102, 204, 0.3); /* Hover effect (purple tint) */
+    transform: translateY(-3px) scale(1.05);
+    box-shadow: 0 5px 15px rgba(153, 102, 204, 0.5); /* Thêm bóng khi hover */
 }
 
+/* Specific Social Icon Colors (Optional but nice touch) */
+.social-icon .fa-facebook-f { color: #3b5998; }
+.social-icon .fa-instagram { color: #E1306C; }
+.social-icon .fa-youtube { color: #FF0000; }
+.social-icon .fa-envelope { color: #D44638; }
+.social-icon .fa-gamepad { color: #00bcd4; } /* A general gaming color */
+.social-icon .fa-discord { color: #7289DA; }
+.social-icon .fa-tiktok { color: #69C9D0; }
 
-/* Specific Social Icon Colors */
-.social-icon .fab.fa-youtube { color: #ff0000; }
-.social-icon .fab.fa-discord { color: #5865f2; }
-.social-icon .fab.fa-facebook-f { color: #1877f2; }
-.social-icon .fab.fa-facebook { color: #1877f2; }
-.social-icon .fab.fa-tiktok { color: #ee1d52; }
-.social-icon .fas.fa-gamepad { color: #9966cc; }
 
-
-/* Dedicated Support Section */
+/* Support Section */
 .support-section {
     text-align: center;
 }
 
 .support-section h2 {
-    margin-top: 0;
-    margin-bottom: 1.8rem;
-    font-size: 1.9rem;
-    color: #e0e0e0;
+    font-family: 'Poppins', sans-serif;
+    color: #fff;
+    font-size: 1.8rem;
+    margin-bottom: 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-shadow: 0 0 8px rgba(138, 43, 226, 0.5); /* Purple glow */
 }
 
-.support-section h2 i {
-    color: #9966cc;
-    margin-right: 0.6rem;
-}
-
-/* Wrapper cho QR code donate và nút tải xuống */
 .support-qr-wrapper {
     position: relative;
-    width: 80%;
-    max-width: 250px;
-    height: auto;
-    margin: 0 auto 20px auto;
-    background: white;
-    padding: 12px;
-    border-radius: 15px;
-    box-shadow: 0 6px 15px rgba(0,0,0,0.2);
-    overflow: hidden;
-    transform-style: preserve-3d;
-    perspective: 1000px;
-    transition: transform 0.3s ease;
-    border: 3px solid #8A2BE2;
+    display: inline-block; /* Để căn giữa */
+    background-color: rgba(255, 255, 255, 0.9); /* Nền trắng cho QR */
+    padding: 1rem;
+    border-radius: 0.8rem;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    margin-bottom: 1.5rem;
+    width: 200px; /* Kích thước cố định cho QR wrapper */
+    height: 200px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden; /* Ensure QR code fits */
 }
 
-/* Hover effects for support-qr-wrapper */
-.support-qr-wrapper:hover {
-    transform: translateY(5px);
+.support-qr-code {
+    width: 100%;
+    height: 100%;
+    object-fit: contain; /* Đảm bảo hình ảnh QR vừa với khung */
+    border-radius: 0.5rem;
 }
 
-.support-qr-wrapper:hover .support-qr-code {
-    opacity: 0.3;
+.download-qr-overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.7); /* Lớp phủ đen trong suốt */
+    color: white;
+    padding: 0.8rem 1.5rem;
+    border: none;
+    border-bottom-left-radius: 0.8rem;
+    border-bottom-right-radius: 0.8rem;
+    font-size: 1.15rem;
+    cursor: pointer;
+    opacity: 0;
+    transform: translateY(100%);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
 }
 
 .support-qr-wrapper:hover .download-qr-overlay {
     opacity: 1;
-    visibility: visible;
-    transform: translate(-50%, -50%) rotateY(0deg);
+    transform: translateY(0);
 }
-
-
-/* Apply general QR image styles for both share and support QR */
-.support-qr-code, .share-qr-image {
-    width: 100%;
-    height: 100%;
-    object-fit: contain;
-    display: block;
-    border-radius: 10px;
-    transition: opacity 0.3s ease, transform 0.3s ease;
-    backface-visibility: hidden;
-}
-
-/* Apply general download overlay styles for both share and support QR */
-.download-qr-overlay {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%) rotateY(180deg);
-    background: rgba(0, 0, 0, 0.75);
-    color: #e0e0e0;
-    border: 2px solid #9966cc;
-    border-radius: 10px;
-    padding: 1rem 2rem;
-    font-size: 1.3rem;
-    font-weight: 600;
-    cursor: pointer;
-    opacity: 0;
-    visibility: hidden;
-    transition: opacity 0.3s ease, visibility 0.3s ease, transform 0.3s ease;
-    display: flex;
-    align-items: center;
-    gap: 0.75rem;
-    z-index: 10;
-    backface-visibility: hidden;
-}
-
-/* Specific border color for donate download button if needed */
-.support-qr-wrapper .download-qr-overlay {
-    border: 2px solid #8A2BE2;
-}
-
 
 .support-bank-info p {
-    margin: 8px 0;
-    font-size: 16px;
-    line-height: 1.5;
+    font-family: 'Inter', sans-serif;
+    font-size: 1.1rem;
+    margin: 0.5rem 0;
+    color: #e0e0e0;
 }
 
 .support-bank-info strong {
-    color: #FFD700;
+    color: #fff;
 }
 
 .support-footer-text {
-    font-size: 18px;
-    color: #f0f0f0;
-    font-style: italic;
-    margin-top: 20px;
-    padding-top: 10px;
-    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    font-family: 'Inter', sans-serif;
+    font-size: 1.15rem;
+    color: #ffd700;
+    margin-top: 1.5rem;
+    font-weight: 500;
 }
 
 /* Showcase Section */
@@ -321,317 +228,322 @@ body::before {
 }
 
 .showcase-section h2 {
-    margin-top: 3rem;
-    margin-bottom: 1.8rem;
-    font-size: 1.9rem;
-    color: #e0e0e0;
-}
-
-.showcase-section h2 i {
-    color: #ffd700;
-    margin-right: 0.6rem;
+    font-family: 'Poppins', sans-serif;
+    color: #fff;
+    font-size: 1.8rem;
+    margin-bottom: 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-shadow: 0 0 8px rgba(255, 215, 0, 0.5); /* Gold glow */
 }
 
 .showcase-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-    gap: 1.2rem;
-    margin-bottom: 2rem;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    margin-bottom: 1rem;
 }
 
 .showcase-image {
     width: 100%;
-    border-radius: 0.75rem;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
-    transition: transform 0.2s ease;
+    height: 180px; /* Chiều cao cố định cho ảnh */
+    object-fit: cover; /* Đảm bảo ảnh được cover và không bị méo */
+    border-radius: 0.8rem;
+    border: 2px solid rgba(255, 215, 0, 0.5); /* Gold border */
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .showcase-image:hover {
     transform: scale(1.03);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
 }
 
 .showcase-center {
-    text-align: center;
-    margin-top: 1.5rem;
+    display: flex;
+    justify-content: center;
+    margin-top: 1rem; /* Thêm khoảng cách nếu cần */
 }
+
+.showcase-center .showcase-image {
+    width: calc(100% - 2rem); /* Chiếm gần hết chiều rộng */
+    max-width: 400px; /* Giới hạn chiều rộng tối đa */
+    height: 250px; /* Chiều cao lớn hơn cho ảnh trung tâm */
+}
+
 
 /* Footer */
 .footer {
+    padding: 1.5rem;
     text-align: center;
-    font-size: 0.95rem;
-    color: #bbb;
-    padding-top: 1.5rem;
-    padding-bottom: 1rem;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.9rem;
+    color: #a0a0a0;
 }
 
-.footer-main i {
-    color: #ec4899;
+.footer-main {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+    color: #e0e0e0;
 }
 
-/* Popup Base Styles (for share) */
+
+/* Share Popup Styles */
 .popup-overlay {
-    display: none;
     position: fixed;
-    z-index: 1000;
-    left: 0;
     top: 0;
+    left: 0;
     width: 100%;
     height: 100%;
-    overflow: auto;
-    background-color: rgba(0,0,0,0.7);
-    backdrop-filter: blur(5px);
-    -webkit-backdrop-filter: blur(5px);
+    background: rgba(0, 0, 0, 0.7);
+    display: flex;
     justify-content: center;
     align-items: center;
     opacity: 0;
-    transition: opacity 0.3s ease;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+    z-index: 1000;
 }
 
-.popup-overlay.active {
-    display: flex;
+.popup-overlay.show {
     opacity: 1;
+    visibility: visible;
 }
 
 .popup-content {
-    background-color: #333;
-    margin: auto;
-    padding: 25px;
-    border-radius: 15px;
-    width: 90%;
+    background: rgba(255, 255, 255, 0.15);
+    border-radius: 1rem;
+    padding: 2.5rem;
+    backdrop-filter: blur(20px) saturate(180%);
+    -webkit-backdrop-filter: blur(20px) saturate(180%);
+    border: 1px solid rgba(153, 102, 204, 0.7);
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.6);
+    color: white;
+    text-align: center;
     max-width: 400px;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+    width: 90%;
     position: relative;
-    color: #f0f0f0;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    transform: scale(0.95);
-    transition: transform 0.3s ease, opacity 0.3s ease;
+    transform: translateY(20px);
     opacity: 0;
+    transition: transform 0.3s ease, opacity 0.3s ease;
 }
 
-.popup-overlay.active .popup-content {
-    transform: scale(1);
+.popup-overlay.show .popup-content {
+    transform: translateY(0);
     opacity: 1;
 }
 
-/* Close Button for Popups */
-.close-button {
-    color: #aaa;
-    float: right;
-    font-size: 28px;
-    font-weight: bold;
-    position: absolute;
-    top: 10px;
-    right: 20px;
-    cursor: pointer;
-    transition: 0.3s;
-}
-
-.close-button:hover,
-.close-button:focus {
-    color: #fff;
-    text-decoration: none;
-}
-
-/* Popup Header */
-.popup-header {
-    text-align: center;
-    margin-bottom: 20px;
-    padding-bottom: 10px;
-    border-bottom: 1px solid #444;
-}
-
 .popup-header h3 {
-    margin: 0;
-    font-size: 24px;
-    color: #8A2BE2;
-}
-
-/* Share Popup Specific Styles */
-.share-popup-content {
-    background: rgba(255, 255, 255, 0.1);
-    border: 1px solid rgba(153, 102, 204, 0.5);
-    backdrop-filter: blur(20px) saturate(180%);
-    -webkit-backdrop-filter: blur(20px) saturate(180%);
-}
-
-.share-popup-content h3 {
-    margin-bottom: 1.8rem;
-    font-size: 1.6rem;
-    color: #e0e0e0;
+    font-size: 1.8rem;
+    margin-bottom: 1.5rem;
+    color: #fff;
+    text-shadow: 0 0 8px rgba(153, 102, 204, 0.5);
 }
 
 .share-qr-wrapper {
     position: relative;
-    width: 200px;
-    height: 200px;
-    margin: 0 auto 2rem auto;
-    background: white;
-    padding: 12px;
-    border-radius: 15px;
-    box-shadow: 0 6px 15px rgba(0,0,0,0.2);
+    display: inline-block;
+    background-color: white; /* White background for QR */
+    padding: 1rem;
+    border-radius: 0.8rem;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    margin-bottom: 1.5rem;
+    width: 180px; /* Fixed size for QR wrapper */
+    height: 180px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     overflow: hidden;
-    transform-style: preserve-3d;
-    perspective: 1000px;
-    transition: transform 0.3s ease;
 }
 
-.share-qr-wrapper:hover {
-    transform: rotateY(12deg);
-}
-
-.share-qr-wrapper:hover .share-qr-image {
-    opacity: 0.3;
-    transform: rotateY(12deg);
-}
-
-.share-qr-wrapper:hover .download-qr-overlay {
-    opacity: 1;
-    visibility: visible;
-    transform: translate(-50%, -50%) rotateY(0deg);
+.share-qr-image {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    border-radius: 0.5rem;
 }
 
 .share-link-box {
     display: flex;
-    align-items: center;
-    background-color: rgba(0, 0, 0, 0.4);
-    border-radius: 0.85rem;
-    padding: 0.6rem;
-    margin-top: 2rem;
-    border: 2px solid #9966cc;
-    box-shadow: 0 5px 10px rgba(0,0,0,0.25);
+    justify-content: center;
+    gap: 0.5rem;
+    margin-top: 1rem;
 }
 
 .share-link-box input {
     flex-grow: 1;
-    border: none;
-    background: transparent;
+    padding: 0.8rem 1.2rem;
+    border: 1px solid rgba(153, 102, 204, 0.8);
+    border-radius: 8px;
+    background-color: rgba(255, 255, 255, 0.1);
+    color: #fff;
+    font-size: 1rem;
     outline: none;
-    font-size: 1.05rem;
-    color: #e0e0e0;
-    padding: 0.6rem 1rem;
 }
 
 .share-link-box button {
-    background-color: #9966cc;
-    color: #e0e0e0;
+    padding: 0.8rem 1.5rem;
+    background-color: #8A2BE2; /* Purple */
+    color: white;
     border: none;
-    border-radius: 0.6rem;
-    padding: 0.8rem 1.4rem;
+    border-radius: 8px;
     cursor: pointer;
-    font-size: 1.05rem;
-    font-weight: 600;
-    transition: background-color 0.2s ease, transform 0.2s ease;
+    font-size: 1rem;
+    transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
 .share-link-box button:hover {
-    background-color: #bb99dd;
-    transform: translateY(-3px);
+    background-color: #6a1ba3;
+    transform: translateY(-2px);
 }
 
-/* Responsive adjustments */
+.close-button {
+    position: absolute;
+    top: 15px;
+    right: 25px;
+    color: #ccc;
+    font-size: 30px;
+    cursor: pointer;
+}
+
+.close-button:hover {
+    color: #fff;
+}
+
+.card-top-right-music-button, .card-top-left-share-button {
+    position: absolute;
+    top: 1rem;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: white;
+    font-size: 1rem;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    z-index: 5; /* Ensure button is above other elements */
+}
+
+.card-top-right-music-button {
+    right: 1rem;
+}
+
+.card-top-left-share-button {
+    left: 1rem;
+}
+
+.card-top-right-music-button.playing {
+    color: #9966cc; /* Purple color when playing */
+    box-shadow: 0 0 10px rgba(153, 102, 204, 0.7); /* Purple glow when playing */
+}
+
+.card-top-right-music-button:hover, .card-top-left-share-button:hover {
+    background-color: rgba(153, 102, 204, 0.3); /* Hover effect (purple tint) */
+    transform: scale(1.1);
+}
+
+
+/* Responsive Design */
 @media (max-width: 768px) {
     .container {
-        padding: 1.5rem 1rem;
+        padding: 1rem;
     }
+
     .glass-card {
-        padding: 2rem;
+        padding: 1.5rem;
     }
-    .card-top-left-share-button {
-        top: 1rem;
-        left: 1rem;
-        width: 42px;
-        height: 42px;
-    }
-    .card-top-left-share-button i {
-        font-size: 1.3rem;
-    }
-    .card-top-right-music-button {
-        top: 1rem;
-        right: 1rem;
-        width: 42px;
-        height: 42px;
-        font-size: 1.3rem;
-    }
-    .popup-content {
-        padding: 1.8rem;
-    }
-    .popup-header h3 {
-        font-size: 1.4rem;
-    }
-    .support-qr-wrapper {
-        width: 70%;
-        max-width: 200px;
-    }
-    .support-bank-info p {
-        font-size: 14px;
-    }
-    .support-footer-text {
-        font-size: 16px;
-    }
-    .share-qr-wrapper {
-        width: 160px;
-        height: 160px;
-        padding: 10px;
-    }
-    .download-qr-overlay {
-        padding: 0.7rem 1.2rem;
-        font-size: 1.1rem;
-    }
-    .share-link-box input {
-        font-size: 0.95rem;
-    }
-    .share-link-box button {
-        padding: 0.6rem 1rem;
-        font-size: 0.95rem;
-    }
+
     .avatar {
         width: 100px;
         height: 100px;
     }
+
     .online-indicator {
-        width: 14px;
-        height: 14px;
-        bottom: 8px;
-        right: 8px;
+        width: 12px;
+        height: 12px;
+        bottom: 12px;
+        right: calc(50% - 50px + 5px);
     }
+
     .profile-name {
-        font-size: 1.6rem;
+        font-size: 1.8rem;
     }
+
     .profile-bio {
-        font-size: 0.95rem;
+        font-size: 0.9rem;
     }
+
+    .live-info {
+        font-size: 0.8rem;
+    }
+
     .social-icon {
-        font-size: 1.2rem;
         width: 40px;
         height: 40px;
+        font-size: 1.1rem;
     }
-    .social-icons {
-        gap: 0.8rem;
+
+    .support-section h2, .showcase-section h2, .popup-header h3 {
+        font-size: 1.5rem;
     }
-}
 
-/* Dòng bản quyền ẩn, chỉ hiện khi F12 */
-#copyright-hidden-text {
-    position: absolute;
-    left: -9999px;
-    top: -9999px;
-    width: 1px;
-    height: 1px;
-    overflow: hidden;
-    opacity: 0;
-    pointer-events: none;
-    user-select: none;
-    white-space: nowrap;
+    .support-qr-wrapper {
+        width: 150px;
+        height: 150px;
+    }
 
-    /* Styles khi được phát hiện trong DevTools */
-    color: #555;
-    font-size: 10px;
-    text-align: center;
-    width: auto;
-    height: auto;
-}
+    .download-qr-overlay {
+        padding: 0.6rem 1rem;
+        font-size: 1rem;
+    }
 
-#copyright-hidden-text p {
-    margin: 0;
-    padding: 0;
+    .support-bank-info p {
+        font-size: 1rem;
+    }
+
+    .support-footer-text {
+        font-size: 1rem;
+    }
+
+    .showcase-image {
+        height: 140px;
+    }
+
+    .showcase-center .showcase-image {
+        height: 200px;
+    }
+
+    .share-qr-wrapper {
+        width: 140px;
+        height: 140px;
+        padding: 0.8rem;
+    }
+
+    .share-link-box input {
+        padding: 0.6rem 1rem;
+        font-size: 0.9rem;
+    }
+
+    .share-link-box button {
+        padding: 0.6rem 1rem;
+        font-size: 0.9rem;
+    }
+
+    .popup-content {
+        padding: 1.5rem;
+    }
+    
+    .card-top-right-music-button, .card-top-left-share-button {
+        width: 35px;
+        height: 35px;
+        font-size: 0.9rem;
+    }
 }
