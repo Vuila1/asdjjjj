@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>hidden thing</title>
+    <title>Lời nhắn đặc biệt từ Thắng Lợi</title>
     <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
     <meta http-equiv="Pragma" content="no-cache" />
     <meta http-equiv="Expires" content="0" />
@@ -16,8 +16,15 @@
         body {
             font-family: 'Poppins', sans-serif;
             background-color: black;
-            background: url("img/background.gif") no-repeat center center fixed;
+            /* ĐIỀU CHỈNH CHO ẢNH NỀN TƯƠNG THÍCH HƠN TRÊN IOS */
+            background-image: url("img/background.gif");
+            background-position: center center;
+            background-repeat: no-repeat;
             background-size: cover;
+            /* Dùng background-attachment: scroll; hoặc bỏ hẳn để tương thích tốt hơn với iOS */
+            /* iOS thường có vấn đề với background-attachment: fixed; */
+            background-attachment: scroll; /* Thay đổi từ fixed sang scroll */
+            
             color: #e0e0e0;
             display: flex;
             justify-content: center;
@@ -326,7 +333,7 @@
 
         submitPasswordBtn.addEventListener('click', function() {
             const enteredPassword = passwordInput.value;
-            const correctPassword = "thangloi"; // Đã cập nhật mật khẩu ở đây
+            const correctPassword = "thangloi"; // Mật khẩu vẫn là "thangloi"
             if (enteredPassword === correctPassword) {
                 passwordPrompt.style.display = 'none';
                 secretMessage.style.display = 'block';
@@ -356,7 +363,7 @@
         });
 
         noButton.addEventListener('click', function() {
-            noButton.textContent = 'Có';
+            noButton.textContent = 'OK';
             noButton.classList.remove('no-button');
             noButton.classList.add('ok-button');
 
