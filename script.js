@@ -1,1 +1,129 @@
-document.addEventListener("DOMContentLoaded",function(){!function(){let n=!1;function e(){var e=160<window.outerWidth-window.innerWidth,t=160<window.outerHeight-window.innerHeight;n=(e||t)&&(n||!0)}setInterval(e,1e3),e()}(),document.addEventListener("contextmenu",function(e){e.preventDefault(),console.log("Right-click is disabled.")}),document.addEventListener("keydown",function(e){"F12"===e.key&&(e.preventDefault(),console.log("F12 key is disabled.")),(e.ctrlKey&&e.shiftKey&&("I"===e.key||"J"===e.key)||e.metaKey&&e.altKey&&("I"===e.key||"J"===e.key))&&(e.preventDefault(),console.log("Developer tool shortcut (Ctrl+Shift+I/J or Cmd+Option+I/J) is disabled.")),e.ctrlKey&&"U"===e.key&&(e.preventDefault(),console.log("View Source shortcut (Ctrl+U) is disabled."))});const n=document.getElementById("typing"),o="Đảk Đảk Bủn Bủn Lmao Lmao";let c=!1,l=0;const i=150,d=100;!function e(){var t=o.substring(0,l);n.textContent=t,!c&&l<o.length?(l++,setTimeout(e,i)):c&&0<l?(l--,setTimeout(e,d)):(c||l!==o.length)&&c&&0===l&&(c=!1)}();const e=document.getElementById("card-share-button"),t=document.getElementById("sharePopup"),a=document.getElementById("close-share-popup"),s=document.getElementById("bio-link-url"),u=document.getElementById("copy-bio-link"),r=document.getElementById("download-qr-overlay");var m=document.getElementById("bio-link-qr-image");e.addEventListener("click",function(){t.classList.add("active")}),a.addEventListener("click",function(){t.classList.remove("active")}),t.addEventListener("click",function(e){e.target===t&&t.classList.remove("active")}),u.addEventListener("click",function(){s.select(),s.setSelectionRange(0,99999),document.execCommand("copy"),alert("Đã sao chép link!")}),r.addEventListener("click",function(){var e=m.src;if(e){const t=document.createElement("a");t.href=e,t.download="BioLink_QR_Code.png",document.body.appendChild(t),t.click(),document.body.removeChild(t)}else alert("Không tìm thấy mã QR để tải xuống.")});const y=document.getElementById("download-donate-qr");var v=document.querySelector(".support-qr-code");y.addEventListener("click",function(){var e=v.src;if(e){const t=document.createElement("a");t.href=e,t.download="Donate_QR_Code.png",document.body.appendChild(t),t.click(),document.body.removeChild(t)}else alert("Không tìm thấy mã QR donate để tải xuống.")});const g=document.getElementById("bg-music"),p=document.getElementById("toggle-music-button");let f=!1;g.play().then(()=>{f=!0,p.querySelector("i").classList.remove("fa-volume-mute"),p.querySelector("i").classList.add("fa-volume-up"),p.classList.add("playing")}).catch(e=>{f=!1,p.querySelector("i").classList.remove("fa-volume-up"),p.querySelector("i").classList.add("fa-volume-mute"),p.classList.remove("playing"),console.log("Autoplay bị chặn, người dùng cần click để bật nhạc:",e)}),p.addEventListener("click",function(){f?(g.pause(),p.querySelector("i").classList.remove("fa-volume-up"),p.querySelector("i").classList.add("fa-volume-mute"),p.classList.remove("playing")):(g.play(),p.querySelector("i").classList.remove("fa-volume-mute"),p.querySelector("i").classList.add("fa-volume-up"),p.classList.add("playing")),f=!f})});
+document.addEventListener('DOMContentLoaded', function() {
+    const typingElement = document.getElementById('typing');
+    const text = "Đảk Đảk Bủn Bủn Lmao Lmao";
+    let i = 0;
+    let isDeleting = false;
+    let charIndex = 0;
+    const typingSpeed = 150;
+    const deletingSpeed = 100;
+    const delayBetweenWords = 1000;
+
+    function typeWriter() {
+        const currentText = text.substring(0, charIndex);
+        typingElement.textContent = currentText;
+
+        if (!isDeleting && charIndex < text.length) {
+            charIndex++;
+            setTimeout(typeWriter, typingSpeed);
+        } else if (isDeleting && charIndex > 0) {
+            charIndex--;
+            setTimeout(typeWriter, deletingSpeed);
+        } else if (!isDeleting && charIndex === text.length) {
+            // No deleting needed for a single line of text
+        } else if (isDeleting && charIndex === 0) {
+            isDeleting = false;
+            // No next word, just stay
+        }
+    }
+
+    typeWriter();
+
+    // Share button functionality
+    const cardShareButton = document.getElementById('card-share-button');
+    const sharePopup = document.getElementById('sharePopup');
+    const closeSharePopup = document.getElementById('close-share-popup');
+    const bioLinkUrl = document.getElementById('bio-link-url');
+    const copyBioLinkButton = document.getElementById('copy-bio-link');
+    const downloadQrOverlay = document.getElementById('download-qr-overlay'); // Nút download QR share
+    const bioLinkQrImage = document.getElementById('bio-link-qr-image');
+
+    cardShareButton.addEventListener('click', function() {
+        sharePopup.classList.add('active');
+        // You might want to generate QR code dynamically here or ensure it's loaded
+    });
+
+    closeSharePopup.addEventListener('click', function() {
+        sharePopup.classList.remove('active');
+    });
+
+    sharePopup.addEventListener('click', function(event) {
+        if (event.target === sharePopup) {
+            sharePopup.classList.remove('active');
+        }
+    });
+
+    copyBioLinkButton.addEventListener('click', function() {
+        bioLinkUrl.select();
+        bioLinkUrl.setSelectionRange(0, 99999); // For mobile devices
+        document.execCommand('copy');
+        alert('Đã sao chép link!'); // Optional: provide feedback
+    });
+
+    downloadQrOverlay.addEventListener('click', function() {
+        const qrCodeSrc = bioLinkQrImage.src;
+        if (qrCodeSrc) {
+            const a = document.createElement('a');
+            a.href = qrCodeSrc;
+            a.download = 'BioLink_QR_Code.png'; // Suggested filename
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+        } else {
+            alert('Không tìm thấy mã QR để tải xuống.');
+        }
+    });
+
+    // Donate QR Download Functionality
+    const downloadDonateQrButton = document.getElementById('download-donate-qr'); // Nút download QR donate
+    const donateQrImage = document.querySelector('.support-qr-code'); // Hình ảnh QR donate
+
+    downloadDonateQrButton.addEventListener('click', function() {
+        const qrCodeSrc = donateQrImage.src;
+        if (qrCodeSrc) {
+            const a = document.createElement('a');
+            a.href = qrCodeSrc;
+            a.download = 'Donate_QR_Code.png'; // Tên file tải xuống cho QR donate
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+        } else {
+            alert('Không tìm thấy mã QR donate để tải xuống.');
+        }
+    });
+
+
+    // Music Control Functionality
+    const bgMusic = document.getElementById('bg-music');
+    const toggleMusicButton = document.getElementById('toggle-music-button');
+    let isMusicPlaying = false; // Theo dõi trạng thái nhạc
+
+    // Kiểm tra nếu trình duyệt cho phép tự động phát nhạc
+    bgMusic.play().then(() => {
+        isMusicPlaying = true;
+        toggleMusicButton.querySelector('i').classList.remove('fa-volume-mute');
+        toggleMusicButton.querySelector('i').classList.add('fa-volume-up');
+        toggleMusicButton.classList.add('playing');
+    }).catch(error => {
+        isMusicPlaying = false;
+        toggleMusicButton.querySelector('i').classList.remove('fa-volume-up');
+        toggleMusicButton.querySelector('i').classList.add('fa-volume-mute');
+        toggleMusicButton.classList.remove('playing');
+        console.log('Autoplay bị chặn, người dùng cần click để bật nhạc:', error);
+    });
+
+    toggleMusicButton.addEventListener('click', function() {
+        if (isMusicPlaying) {
+            bgMusic.pause();
+            toggleMusicButton.querySelector('i').classList.remove('fa-volume-up');
+            toggleMusicButton.querySelector('i').classList.add('fa-volume-mute');
+            toggleMusicButton.classList.remove('playing');
+        } else {
+            bgMusic.play();
+            toggleMusicButton.querySelector('i').classList.remove('fa-volume-mute');
+            toggleMusicButton.querySelector('i').classList.add('fa-volume-up');
+            toggleMusicButton.classList.add('playing');
+        }
+        isMusicPlaying = !isMusicPlaying; // Đảo ngược trạng thái
+    });
+
+});
