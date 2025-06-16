@@ -1,10 +1,7 @@
 /* General Body and Container Styles */
 body {
     font-family: 'Poppins', 'Inter', sans-serif;
-    background-color: black;
-    /* Thay đổi 'fixed' thành 'scroll' hoặc bỏ hẳn đi */
-    background: url("img/background.gif") no-repeat center center scroll;
-    background-size: cover;
+    background-color: black; /* Giữ lại để có nền đen nếu ảnh không tải được */
     margin: 0;
     padding: 0;
     color: white;
@@ -635,4 +632,15 @@ body::before {
 #copyright-hidden-text p {
     margin: 0;
     padding: 0;
+}
+    /* Thêm CSS này cho ảnh nền cố định trên mọi thiết bị */
+.fixed-background {
+    position: fixed; /* Làm cho nó cố định trên màn hình */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: url("img/background.gif") no-repeat center center;
+    background-size: cover;
+    z-index: -2; /* Đảm bảo nó nằm dưới lớp phủ 'body::before' (có z-index: -1) và nội dung chính */
 }
