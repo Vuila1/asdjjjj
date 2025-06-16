@@ -2,7 +2,8 @@
 body {
     font-family: 'Poppins', 'Inter', sans-serif;
     background-color: black;
-    background: url("img/background.gif") no-repeat center center scroll; /* Đã thay đổi từ 'fixed' sang 'scroll' */
+    /* Thay đổi 'fixed' thành 'scroll' hoặc bỏ hẳn đi */
+    background: url("img/background.gif") no-repeat center center scroll;
     background-size: cover;
     margin: 0;
     padding: 0;
