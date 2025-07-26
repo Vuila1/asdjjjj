@@ -4,67 +4,39 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Thống Kê & Biểu Đồ - Đảk Đảk Bủn Bủn</title>
-    <meta name="description" content="Thống kê và biểu đồ lượt truy cập của trang cá nhân Đảk Đảk Bủn Bủn.">
-
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
-
     <link rel="stylesheet" href="style.css">
-
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-
     <style>
-        .stat-item {
-            font-size: 1.1rem;
-            margin: 15px 0;
-            display: flex;
-            align-items: center;
-        }
-        .stat-item i {
-            margin-right: 12px;
-            color: #8A2BE2;
-            width: 20px;
-        }
-        .stat-item strong {
-            margin-left: 8px;
-            color: #ffffff;
-            background-color: rgba(0, 0, 0, 0.2);
-            padding: 2px 8px;
-            border-radius: 5px;
-        }
-        .chart-container {
-            position: relative;
-            height: 300px; /* Chiều cao của biểu đồ */
-            margin-top: 20px;
-        }
-        .back-link {
-            display: inline-block;
-            margin-top: 20px;
-            color: #f0f0f0;
-            text-decoration: none;
-            transition: color 0.3s;
-        }
-        .back-link:hover {
-            color: #8A2BE2;
-        }
+        .stat-item { font-size: 1.1rem; margin: 15px 0; display: flex; align-items: center; }
+        .stat-item i { margin-right: 12px; color: #8A2BE2; width: 20px; }
+        .stat-item strong { margin-left: 8px; color: #ffffff; background-color: rgba(0, 0, 0, 0.2); padding: 2px 8px; border-radius: 5px; }
+        .chart-container { position: relative; height: 300px; margin-top: 20px; }
+        .back-link { display: inline-block; margin-top: 20px; color: #f0f0f0; text-decoration: none; }
+        .back-link:hover { color: #8A2BE2; }
     </style>
 </head>
 <body>
 <div class="fixed-background"></div>
-
 <div class="container">
     <div class="glass-card">
-        <h2><i class="fas fa-tachometer-alt" style="color: #8A2BE2; margin-right: 0.5rem;"></i>Tổng Quan</h2>
+        <h2><i class="fas fa-tachometer-alt" style="color: #8A2BE2;"></i> Tổng Quan</h2>
         <div class="stat-item">
             <i class="fas fa-eye"></i>
             <span>Tổng lượt truy cập (30 ngày):</span>
             <strong id="page-views">Đang tải...</strong>
         </div>
+        <div class="stat-item">
+            <i class="fas fa-user-check"></i>
+            <span>Tổng thiết bị độc nhất (30 ngày):</span>
+            <strong id="unique-devices">Đang tải...</strong>
+        </div>
         <a href="index.html" class="back-link"><i class="fas fa-arrow-left"></i> Quay về trang chủ</a>
     </div>
 
     <div class="glass-card">
-        <h2><i class="fas fa-chart-area" style="color: #00BFFF; margin-right: 0.5rem;"></i>Biểu Đồ Lượt Truy Cập (30 ngày)</h2>
+        <h2><i class="fas fa-chart-area" style="color: #00BFFF;"></i> Biểu Đồ Lượt Truy Cập (30 ngày)</h2>
         <div class="chart-container">
             <canvas id="visitsChart"></canvas>
         </div>
@@ -79,62 +51,69 @@
 <script>
     async function renderAnalytics() {
         const pageViewsElement = document.getElementById('page-views');
+        const uniqueDevicesElement = document.getElementById('unique-devices');
         const chartCanvas = document.getElementById('visitsChart');
 
         try {
-            // ⚠️ QUAN TRỌNG: Thay URL Worker của bạn vào đây
+            // ⚠️ THAY URL WORKER CỦA BẠN VÀO ĐÂY NẾU CÓ THAY ĐỔI
             const response = await fetch('https://rapid-boat-43e5.buithangloi028.workers.dev');
             const data = await response.json();
 
             if (data.error) { throw new Error(data.error); }
 
-            const dailyData = data.dailyViews || [];
+            const dailyData = data.dailyData || [];
             
             // --- 1. Cập nhật số liệu tổng quan ---
             const totalViews = dailyData.reduce((sum, item) => sum + item.views, 0);
+            const totalUniques = dailyData.reduce((sum, item) => sum + item.uniques, 0);
             pageViewsElement.textContent = totalViews.toLocaleString('vi-VN');
+            uniqueDevicesElement.textContent = totalUniques.toLocaleString('vi-VN');
 
-            // --- 2. Vẽ biểu đồ ---
+            // --- 2. Chuẩn bị dữ liệu cho biểu đồ ---
             const labels = dailyData.map(item => new Date(item.date).toLocaleDateString('vi-VN', { day: '2-digit', month: '2-digit' }));
             const viewsData = dailyData.map(item => item.views);
+            const uniquesData = dailyData.map(item => item.uniques);
 
+            // --- 3. Vẽ biểu đồ với 2 đường ---
             new Chart(chartCanvas, {
                 type: 'line',
                 data: {
                     labels: labels,
-                    datasets: [{
-                        label: 'Lượt Truy Cập',
-                        data: viewsData,
-                        borderColor: 'rgba(0, 191, 255, 1)',
-                        backgroundColor: 'rgba(0, 191, 255, 0.2)',
-                        borderWidth: 2,
-                        pointRadius: 2,
-                        pointBackgroundColor: 'rgba(0, 191, 255, 1)',
-                        fill: true,
-                        tension: 0.3
-                    }]
+                    datasets: [
+                        {
+                            label: 'Lượt Truy Cập',
+                            data: viewsData,
+                            borderColor: 'rgba(0, 191, 255, 1)',
+                            backgroundColor: 'rgba(0, 191, 255, 0.2)',
+                            borderWidth: 2,
+                            pointRadius: 2,
+                            pointBackgroundColor: 'rgba(0, 191, 255, 1)',
+                            fill: true,
+                            tension: 0.3
+                        },
+                        {
+                            label: 'Thiết bị Độc nhất',
+                            data: uniquesData,
+                            borderColor: 'rgba(236, 72, 153, 1)', // Màu hồng
+                            backgroundColor: 'rgba(236, 72, 153, 0.2)',
+                            borderWidth: 2,
+                            pointRadius: 2,
+                            pointBackgroundColor: 'rgba(236, 72, 153, 1)',
+                            fill: true,
+                            tension: 0.3
+                        }
+                    ]
                 },
                 options: {
                     responsive: true,
                     maintainAspectRatio: false,
                     scales: {
-                        y: {
-                            beginAtZero: true,
-                            ticks: { color: '#ddd' },
-                            grid: { color: 'rgba(255, 255, 255, 0.1)' }
-                        },
-                        x: {
-                            ticks: { color: '#ddd' },
-                            grid: { color: 'rgba(255, 255, 255, 0.1)' }
-                        }
+                        y: { beginAtZero: true, ticks: { color: '#ddd' }, grid: { color: 'rgba(255, 255, 255, 0.1)' } },
+                        x: { ticks: { color: '#ddd' }, grid: { color: 'rgba(255, 255, 255, 0.1)' } }
                     },
                     plugins: {
-                        legend: { display: false },
-                        tooltip: {
-                            backgroundColor: 'rgba(0, 0, 0, 0.7)',
-                            titleFont: { size: 14, family: "'Poppins', sans-serif" },
-                            bodyFont: { size: 12, family: "'Inter', sans-serif" },
-                        }
+                        legend: { display: true, labels: { color: '#ddd' } }, // Hiển thị chú thích
+                        tooltip: { backgroundColor: 'rgba(0, 0, 0, 0.7)' }
                     }
                 }
             });
@@ -142,11 +121,10 @@
         } catch (error) {
             console.error('Lỗi khi lấy dữ liệu truy cập:', error);
             pageViewsElement.textContent = 'Lỗi';
+            uniqueDevicesElement.textContent = 'Lỗi';
         }
     }
-
     document.addEventListener('DOMContentLoaded', renderAnalytics);
 </script>
-
 </body>
 </html>
