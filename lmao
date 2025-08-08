@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>dark dark lmao</title>
+    
+    <link rel="stylesheet" href="style.css">
+    
+    <style>
+        /* CSS cho bố cục gallery */
+        .showcase-gallery {
+            display: grid;
+            /* Chia thành các cột, mỗi cột rộng tối thiểu 280px */
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px; /* Khoảng cách giữa các ảnh */
+            padding: 25px;
+            max-width: 1200px;
+            margin: 20px auto; /* Căn giữa gallery */
+        }
+
+        .gallery-item {
+            border-radius: 12px;
+            overflow: hidden; /* Đảm bảo ảnh không tràn ra ngoài khi có border-radius */
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .gallery-item:hover {
+            transform: translateY(-5px); /* Hiệu ứng nhấc lên khi di chuột vào */
+            box-shadow: 0 12px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover; /* Giúp ảnh luôn đầy khung mà không bị méo */
+            display: block; /* Bỏ khoảng trống thừa dưới ảnh */
+        }
+        
+        /* Style cho tiêu đề và nút bấm */
+        .showcase-title {
+            text-align: center;
+            font-size: 2.5em;
+            margin-top: 40px;
+            color: #fff; /* Giả sử nền tối, chữ trắng */
+            text-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+        }
+        
+        .back-button {
+            display: block;
+            width: fit-content;
+            margin: 20px auto 40px;
+            padding: 10px 25px;
+            background-color: #555;
+            color: white;
+            text-decoration: none;
+            border-radius: 20px;
+            transition: background-color 0.3s;
+        }
+
+        .back-button:hover {
+            background-color: #777;
+        }
+    </style>
+</head>
+<body>
+
+    <h1 class="showcase-title">dark dark lmao Showcase</h1>
+
+    <div class="showcase-gallery">
+        
+        <div class="gallery-item">
+            <img src="img/sb.jpg" alt="Mô tả cho ảnh 1">
+        </div>
+
+        <div class="gallery-item">
+            <img src="img/ten-anh-cua-ban-2.jpg" alt="Mô tả cho ảnh 2">
+        </div>
+        
+        <div class="gallery-item">
+            <img src="img/ten-anh-cua-ban-3.jpg" alt="Mô tả cho ảnh 3">
+        </div>
+
+        <div class="gallery-item">
+            <img src="img/ten-anh-cua-ban-4.png" alt="Mô tả cho ảnh 4">
+        </div>
+
+        <div class="gallery-item">
+            <img src="img/ten-anh-cua-ban-5.gif" alt="Mô tả cho ảnh 5">
+        </div>
+
+        </div>
+    <a href="index.html" class="back-button">Quay về trang chủ</a>
+    
+</body>
+</html>
