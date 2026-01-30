@@ -804,3 +804,12 @@ body::before {
     margin-right: 0.75rem;
     font-size: 1.3rem;
 }
+
+.wescan-button {
+    background-color: #e91e63;
+    margin-top: 1rem;
+}
+
+.wescan-button:hover {
+    background-color: #c2185b;
+}

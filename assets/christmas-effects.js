@@ -45,6 +45,17 @@
   // Canvas context
   const ctx = canvas.getContext('2d');
 
+  // Load lì xì image
+  const lixiImage = new Image();
+  let imageReady = false;
+  lixiImage.onload = function() {
+    imageReady = true;
+  };
+  lixiImage.onerror = function() {
+    console.warn('Failed to load lixi.png, using fallback');
+  };
+  lixiImage.src = 'img/lixi.png';
+
   // Kích thước và scale
   let W = 0, H = 0, DPR = Math.max(1, window.devicePixelRatio || 1);
 
@@ -60,7 +71,7 @@
   resize();
   window.addEventListener('resize', resize, { passive: true });
 
-  // Snowflake constructor
+  // Snowflake constructor (now renders lì xì image)
   function Flake(x, y, r, speed, wind, opacity) {
     this.x = x;
     this.y = y;
@@ -80,12 +91,20 @@
       if (this.x < -this.r) this.x = W + this.r;
     };
     this.draw = function (ctx) {
-      ctx.beginPath();
-      // simple circle (white)
-      ctx.fillStyle = 'rgba(255,255,255,' + this.opacity + ')';
-      ctx.moveTo(this.x + this.r, this.y);
-      ctx.arc(this.x, this.y, this.r, 0, Math.PI * 2);
-      ctx.fill();
+      ctx.save();
+      ctx.globalAlpha = this.opacity;
+      
+      if (imageReady) {
+        // Draw lì xì image
+        const size = this.r * 2; // Use radius as half-size
+        ctx.drawImage(lixiImage, this.x - this.r, this.y - this.r, size, size);
+      } else {
+        // Fallback: draw a simple rectangle shape
+        ctx.fillStyle = 'rgba(220, 20, 60, 1)'; // Red color
+        ctx.fillRect(this.x - this.r, this.y - this.r, this.r * 2, this.r * 2);
+      }
+      
+      ctx.restore();
     };
   }
 
@@ -94,16 +113,16 @@
   function initFlakes() {
     flakes = [];
     const area = W * H;
-    // density: flakes per 10000 px^2 (adjust: ~0.8)
-    const density = 0.8;
-    const count = Math.min(200, Math.round((area / 10000) * density));
+    // density: adjusted for lì xì effect to be less dense (0.4 instead of 0.8)
+    const density = 0.4;
+    const count = Math.min(150, Math.round((area / 10000) * density));
     for (let i = 0; i < count; i++) {
-      const r = 0.8 + Math.random() * 3.5; // size
+      const r = 9 + Math.random() * 10; // size range: 18-38 px (r is half-size)
       const x = Math.random() * W;
       const y = Math.random() * H;
       const speed = 0.3 + Math.random() * 1.2;
       const wind = (Math.random() - 0.5) * 0.6;
-      const opacity = 0.2 + Math.random() * 0.9;
+      const opacity = 0.3 + Math.random() * 0.6; // slightly reduced opacity range
       flakes.push(new Flake(x, y, r, speed, wind, opacity));
     }
   }
