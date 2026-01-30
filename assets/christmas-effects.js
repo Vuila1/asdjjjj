@@ -99,8 +99,8 @@
         const size = this.r * 2; // Use radius as half-size
         ctx.drawImage(lixiImage, this.x - this.r, this.y - this.r, size, size);
       } else {
-        // Fallback: draw a simple rectangle shape
-        ctx.fillStyle = 'rgba(220, 20, 60, 1)'; // Red color
+        // Fallback: draw a simple rectangle shape (globalAlpha already set)
+        ctx.fillStyle = 'rgb(220, 20, 60)'; // Red color
         ctx.fillRect(this.x - this.r, this.y - this.r, this.r * 2, this.r * 2);
       }
       
